@@ -8,7 +8,7 @@
   (error "Require Emacs >= 29 with --with-treesit"))
 
 
-(define-derived-mode move-ts-mode move-mode "MOVE"
+(define-derived-mode move-ts-mode move-mode "Move[Ts]"
   "..."
   :syntax-table nil
   (setq-local font-lock-defaults nil)
