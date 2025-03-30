@@ -246,15 +246,15 @@
   (setq-local treesit-font-lock-feature-list
               '(
                 (types consts module_definitions)
-                (fun_definitions structs enums identifiers keywords)
-                (annotations function_calls macro_calls abort_expression mut_ref comments delimiters brackets)
+                (fun_definitions structs enums identifiers keywords address_literals)
+                (annotations function_calls macro_calls abort_expression mut_ref comments delimiters brackets operators)
                 (labels)))
 
 
   (setq-local treesit-font-lock-settings
               (apply #'treesit-font-lock-rules move-ts-font-lock-rules))
   ;; (setq-local treesit-simple-indent-rules move-ts-indent-rules)
-  (setq-local treesit-font-lock-level 3)
+  (setq-local treesit-font-lock-level 4)
   (treesit-major-mode-setup))
 
 (provide 'move-ts-mode)
