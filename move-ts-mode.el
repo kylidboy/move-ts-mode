@@ -50,7 +50,7 @@
       "let"
       "has"
       "as"
-      ;; "&"
+      "&"
       "friend"
       "entry"
       "mut"
@@ -65,11 +65,12 @@
 
     :language move
     :override t
-    :feature constants
-    ((constant_identifier) @font-lock-constant-face
-     (num_literal) @font-lock-constant-face
-     ((identifier) @font-lock-constant-face
-      (:match @font-lock-constant-face "^[A-Z][A-Z\\d_]+$'")))
+    :feature consts
+    (
+     (constant name: (constant_identifier)  @font-lock-constant-face)
+     (constant expr: (num_literal) @font-lock-constant-face))
+    ;; ((identifier)
+    ;;  (:match?  "^[A-Z][A-Z\\d_]+$'" @font-lock-constant-face)))
 
 
     :language move
@@ -113,14 +114,14 @@
 
     :language move
     :override t
-    :feature function_definitions
+    :feature fun_definitions
     (
      ;; (function_identifier) @font-lock-function-name-face
      (function_definition name: (function_identifier)  @font-lock-function-name-face)
      (macro_function_definition name: (function_identifier)  @font-lock-function-name-face)
      (native_function_definition name: (function_identifier)  @font-lock-builtin-face)
      (usual_spec_function name: (function_identifier)  @font-lock-function-name-face)
-     (function_parameter name: (variable_identifier)  font-lock-variable-name-face))
+     (function_parameter name: (variable_identifier)  @font-lock-variable-name-face))
     ;; (native_function_definition name: (function_identifier) @font-lock-function-name-face)
     ;; (usual_spec_function name: (function_identifier)  @font-lock-function-name-face)
     ;; (function_parameter name: (variable_identifier)  @font-lock-variable-name-face))
@@ -243,15 +244,17 @@
 (defun move-ts-setup ()
   "..."
   (setq-local treesit-font-lock-feature-list
-              '((types constants module_definitions)
-                (function_definitions structs enums identifiers keywords)
+              '(
+                (types consts module_definitions)
+                (fun_definitions structs enums identifiers keywords)
                 (annotations function_calls macro_calls abort_expression mut_ref comments delimiters brackets)
-                (labels )))
+                (labels)))
+
 
   (setq-local treesit-font-lock-settings
               (apply #'treesit-font-lock-rules move-ts-font-lock-rules))
   ;; (setq-local treesit-simple-indent-rules move-ts-indent-rules)
-  (setq-local treesit-font-lock-level 4)
+  (setq-local treesit-font-lock-level 3)
   (treesit-major-mode-setup))
 
 (provide 'move-ts-mode)
